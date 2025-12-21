@@ -34,7 +34,7 @@ function App() {
   let [task, settask] = useState('');  // store input value 
   let [tasklist, settasklist] = useState([]);  // store as array;
 
-  let [message, setmessage] = useState("");
+  let [message, setmessage] = useState("Add a task to get started!");
 
   let [bgColor, setBgColor] = useState("white");
 
