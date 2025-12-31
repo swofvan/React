@@ -1,7 +1,8 @@
 
 import axios from "axios";
-import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom"
+import { useState} from 'react';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CreateBook() {
 
@@ -12,16 +13,29 @@ function CreateBook() {
 
   let navigate = useNavigate();
 
-  function create() {
-    axios.post('https://worksheet-library.mashupstack.com/books', {
+  function create(e) {
+    
+
+    e.preventDefault();
+    
+    let book= {
       title : title,
-      author :author,
-      year : year,
+      author :author, 
+      published_year : year,
       genre : genre
-    }) .then (response => {
-      alert(response.data.massage)
+    }
+    console.log(book)
+
+    axios.post('https://worksheet-library.mashupstack.com/books',book)
+    .then (response => {
+      alert(response.data.message);
+      navigate('/');
     })
-    navigate('/')
+    .catch (error => {
+      console.log(error);
+      alert("Failed to create book")
+    }
+    )
   }
 
   return (
@@ -31,9 +45,11 @@ function CreateBook() {
         <div className='col-3'></div>
         <div className='col'>
 
+          <Link to={'/'} className="btn btn-secondary">Back to List</Link>
+
           <h2 className='text-center'>Add Books</h2>
 
-          <form style={{ marginTop:'50px' }}>
+          <form style={{ marginTop:'50px' }} onSubmit={create}>
             
             <div className="form-group">
               <label>Title</label>
@@ -56,7 +72,7 @@ function CreateBook() {
             <div className="form-group">
               <label>Published Year</label>
               <input
-                type="number"
+                type="text"
                 placeholder='YYYY'
                 className="form-control"
                 value={year}
@@ -74,7 +90,7 @@ function CreateBook() {
             
             <button
               className="btn btn-primary float-right"
-              onClick={create}>
+              type="submit">
               Submit
               </button>
           </form>

@@ -4,6 +4,7 @@ import './App.css';
 import axios from "axios";
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import BookList from './components/BooksList';
 
@@ -29,7 +30,11 @@ function App() {
 
           <h2 className='text-center'>Books</h2>
 
-          {books.map(book => <BookList key={book.id} book={book} refresh = {List} /> )}          
+          <Link to={'/create'} className='btn btn-primary' style={{marginTop: '50px'}}>CreateBook</Link>
+
+          {books.map(book => <BookList key={book.id} book={book} refresh = {List}  style={{marginTop: '50px'}}/> )}   
+
+          <br/><br/>     
 
         </div>
 

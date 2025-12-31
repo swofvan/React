@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 
 function BookList(props) {
 
+    function DeleteBook() {
+        axios.delete('https://worksheet-library.mashupstack.com/books/'+props.book.id).then(response => {
+            alert(response.data.message)
+            props.refresh()
+        })
+    }
+
     return (
         <div className="container">
             <div className='row' style={{ marginTop:'50px' }}>
@@ -21,7 +28,8 @@ function BookList(props) {
                             <td>{props.book.author}</td>
                             <td>{props.book.year}</td>
                             <td>{props.book.genre}</td>
-                            <td></td>
+                            <td><Link to={'/edit'} className="btn btn-warning">Edit</Link></td>
+                            <td><button className="btn btn-danger" onClick={DeleteBook}>Delete</button></td>
                         {/* </tbody> */}
                     </table>
 
